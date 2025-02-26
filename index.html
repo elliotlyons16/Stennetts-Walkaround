@@ -96,15 +96,29 @@
             let date = document.getElementById("date").value;
             let acknowledge = document.getElementById("agree").checked ? "Yes" : "No";
 
-            fetch("https://script.google.com/macros/s/AKfycbyYs8HYdEUImEhZxT0Z99WoNIwgkBzbXvPC7Fqph0X1HJvTvL4voGmUpGd-2wzODbYJXQ/exec", {
-                method: "POST",
-                body: JSON.stringify({ name: name, date: date, acknowledge: acknowledge }),
-                headers: { "Content-Type": "application/json" }
-            })
-            .then(response => response.text())
-            .then(data => alert("Submission successful!"))
-            .catch(error => alert("Error submitting data"));
-        });
+           document.getElementById("trainingForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let name = document.getElementById("name").value;
+    let date = document.getElementById("date").value;
+    let acknowledge = document.getElementById("agree").checked ? "Yes" : "No";
+
+    fetch("https://script.google.com/macros/s/AKfycbyYs8HYdEUImEhZxT0Z99WoNIwgkBzbXvPC7Fqph0X1HJvTvL4voGmUpGd-2wzODbYJXQ/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name, date: date, acknowledge: acknowledge })
+    })
+    .then(response => response.text())
+    .then(data => {
+        if (data.includes("Success")) {
+            alert("Submission successful!");
+        } else {
+            alert("Error: " + data);
+        }
+    })
+    .catch(error => alert("Network error: " + error));
+});
+
     </script>
 </body>
 </html>

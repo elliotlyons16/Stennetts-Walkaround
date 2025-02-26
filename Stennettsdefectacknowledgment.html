@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stennetts Transport Walkaround Check and Defect Reporting Procedure</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; text-align: center; }
+        .container { max-width: 600px; margin: auto; }
+        h2 { color: #333; }
+        .section { margin-bottom: 20px; text-align: left; }
+        label { display: block; margin-top: 10px; }
+        input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+        button { margin-top: 15px; padding: 10px; background-color: blue; color: white; border: none; cursor: pointer; }
+        button:disabled { background-color: grey; cursor: not-allowed; }
+        .logo { max-width: 100%; height: auto; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="Stennettslogo1.png" alt="Stennetts Logo" class="logo">
+        <h2>Stennetts Transport Walkaround Check and Defect Reporting Procedure</h2>
+        
+        <div class="section">
+            <h3>Training Video</h3>
+            <p>Watch the following video before proceeding.</p>
+            <iframe id="trainingVideo" width="100%" height="315" src="https://www.youtube.com/embed/rRdP5F3c_HI" frameborder="0" allowfullscreen></iframe>
+        </div>
+        
+        <div class="section">
+            <h3>Walkaround Checks - Step by Step Guide</h3>
+            <p>Daily walkaround checks are essential for vehicle safety and compliance. Follow these steps:</p>
+            <ul>
+                <li>Check lights and indicators</li>
+                <li>Inspect mirrors and glass for damage</li>
+                <li>Examine tyres and wheel security</li>
+                <li>Ensure brakes are functioning correctly</li>
+                <li>Check fluid levels: oil, coolant, and screen wash</li>
+                <li>Confirm load security</li>
+                <li>Look for any visible leaks</li>
+                <li>Test horn and warning devices</li>
+                <li>Ensure tachograph is operational</li>
+                <li>Confirm seatbelts and safety equipment are intact</li>
+            </ul>
+            <p>For full guidance, visit the official UK government guide: <a href="https://www.gov.uk/government/publications/guide-to-maintaining-roadworthiness/guide-to-maintaining-roadworthiness-commercial-goods-and-passenger-carrying-vehicles#daily-walkaround-checks" target="_blank">Walkaround Checks Guide</a>.</p>
+        </div>
+        
+        <div class="section">
+            <h3>Defect Reporting using Haul Tech Live</h3>
+            <p>All defects must be reported immediately using the Haul Tech Live Defect App. Follow these steps:</p>
+            <ul>
+                <li>Open the Haul Tech Live Defect App on your device</li>
+                <li>Select the vehicle and enter details</li>
+                <li>Describe the defect with as much detail as possible</li>
+                <li>Attach photos if necessary</li>
+                <li>Submit the report</li>
+                <li>Monitor for updates and further actions required</li>
+            </ul>
+            <p>Defects must be reported daily and upon notification of any further defects that arise throughout the day.</p>
+        </div>
+        
+        <div class="section">
+            <h3>Driver Acknowledgment</h3>
+            <form id="trainingForm">
+                <label for="name">Driver Name:</label>
+                <input type="text" id="name" required>
+                
+                <label for="date">Date:</label>
+                <input type="date" id="date" required>
+                
+                <label>
+                    <input type="checkbox" id="agree" required>
+                    I acknowledge that I have watched and understood the training video and content.
+                </label>
+                
+                <button type="submit" id="submitBtn" disabled>Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let videoWatched = false;
+        let submitBtn = document.getElementById("submitBtn");
+        
+        function enableSubmit() {
+            videoWatched = true;
+            submitBtn.disabled = false;
+        }
+        
+        setTimeout(enableSubmit, 300000); // Enable after 5 minutes (adjust as needed)
+        
+        document.getElementById("trainingForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let date = document.getElementById("date").value;
+            let acknowledge = document.getElementById("agree").checked ? "Yes" : "No";
+
+            fetch("https://script.google.com/macros/s/AKfycbyYs8HYdEUImEhZxT0Z99WoNIwgkBzbXvPC7Fqph0X1HJvTvL4voGmUpGd-2wzODbYJXQ/exec", {
+                method: "POST",
+                body: JSON.stringify({ name: name, date: date, acknowledge: acknowledge }),
+                headers: { "Content-Type": "application/json" }
+            })
+            .then(response => response.text())
+            .then(data => alert("Submission successful!"))
+            .catch(error => alert("Error submitting data"));
+        });
+    </script>
+</body>
+</html>
+
+
+

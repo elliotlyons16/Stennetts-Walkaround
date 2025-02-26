@@ -18,7 +18,7 @@
 </head>
 <body>
     <div class="container">
-        <img src="images/Stennettslogo1.png" alt="Stennetts Logo" class="logo">
+        <img src="Stennettslogo1.png" alt="Stennetts Logo" class="logo">
         <h2>Stennetts Transport Walkaround Check and Defect Reporting Procedure</h2>
         
         <div class="section">
@@ -73,22 +73,16 @@
                     I acknowledge that I have watched and understood the training video and content.
                 </label>
                 
-                <button type="submit" id="submitBtn" disabled>Submit</button>
+                <button type="submit" id="submitBtn">Submit</button>
             </form>
         </div>
     </div>
 
     <script>
-        let videoWatched = false;
-        let submitBtn = document.getElementById("submitBtn");
-        
-        function enableSubmit() {
-            videoWatched = true;
-            submitBtn.disabled = false;
-        }
-        
-        setTimeout(enableSubmit, 300000); // Enable after 5 minutes (adjust as needed)
-        
+        document.getElementById("trainingVideo").addEventListener("ended", function() {
+            document.getElementById("submitBtn").disabled = false;
+        });
+
         document.getElementById("trainingForm").addEventListener("submit", function(event) {
             event.preventDefault();
 
@@ -96,32 +90,25 @@
             let date = document.getElementById("date").value;
             let acknowledge = document.getElementById("agree").checked ? "Yes" : "No";
 
-           document.getElementById("trainingForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    let name = document.getElementById("name").value;
-    let date = document.getElementById("date").value;
-    let acknowledge = document.getElementById("agree").checked ? "Yes" : "No";
-
-    fetch("https://script.google.com/macros/s/AKfycbyYs8HYdEUImEhZxT0Z99WoNIwgkBzbXvPC7Fqph0X1HJvTvL4voGmUpGd-2wzODbYJXQ/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name, date: date, acknowledge: acknowledge })
-    })
-    .then(response => response.text())
-    .then(data => {
-        if (data.includes("Success")) {
-            alert("Submission successful!");
-        } else {
-            alert("Error: " + data);
-        }
-    })
-    .catch(error => alert("Network error: " + error));
-});
-
+            fetch("https://script.google.com/macros/s/AKfycbyYs8HYdEUImEhZxT0Z99WoNIwgkBzbXvPC7Fqph0X1HJvTvL4voGmUpGd-2wzODbYJXQ/exec", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name: name, date: date, acknowledge: acknowledge })
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.includes("Success")) {
+                    alert("Submission successful!");
+                } else {
+                    alert("Error: " + data);
+                }
+            })
+            .catch(error => alert("Network error: " + error));
+        });
     </script>
 </body>
 </html>
+
 
 
 

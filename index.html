@@ -73,7 +73,7 @@
                     I acknowledge that I have watched and understood the training video and content.
                 </label>
                 
-                <button type="submit" id="submitBtn">Submit</button>
+                <button type="submit" id="submitBtn" disabled>Submit</button>
             </form>
         </div>
     </div>
@@ -103,11 +103,12 @@
                     alert("Error: " + data);
                 }
             })
-            .catch(error => alert("Network error: " + error));
+            .catch(error => alert("Network error: " + error.message));
         });
     </script>
 </body>
 </html>
+
 
 
 

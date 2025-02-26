@@ -79,8 +79,10 @@
     </div>
 
     <script>
-        document.getElementById("trainingVideo").addEventListener("ended", function() {
-            document.getElementById("submitBtn").disabled = false;
+        document.getElementById("trainingVideo").addEventListener("timeupdate", function() {
+            if (this.currentTime >= this.duration - 2) { // Enable submit button 2 seconds before video ends
+                document.getElementById("submitBtn").disabled = false;
+            }
         });
 
         document.getElementById("trainingForm").addEventListener("submit", function(event) {

@@ -67,15 +67,17 @@
                     I acknowledge that I have read and understood the training content.
                 </label>
                 
-                <button type="submit" id="submitBtn" disabled>Submit</button>
+                <button type="submit" id="submitBtn">Submit</button>
             </form>
         </div>
     </div>
 
     <script>
-        setTimeout(function() {
-            document.getElementById("submitBtn").disabled = false;
-        }, 180000); // 3-minute timer
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                document.getElementById("submitBtn").disabled = false;
+            }, 180000); // 3-minute timer
+        });
 
         document.getElementById("trainingForm").addEventListener("submit", function(event) {
             event.preventDefault();
@@ -102,6 +104,7 @@
     </script>
 </body>
 </html>
+
 
 
 
